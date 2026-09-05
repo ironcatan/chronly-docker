@@ -2,21 +2,17 @@
 
 # --- Stage 1: build the web UI (Vue) ---
 FROM node:20-slim AS webui-build
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends git \
-    && rm -rf /var/lib/apt/lists/*
 WORKDIR /build/aw-webui
 COPY aw-server/aw-webui/package.json aw-server/aw-webui/package-lock.json* ./
 RUN npm ci
 COPY aw-server/aw-webui/ ./
-# vue.config.js shells out to `git rev-parse --short HEAD` for a cosmetic
-# "Web UI commit hash" shown in Settings; the real submodule .git metadata
-# lives outside this build context, so stub a throwaway repo to satisfy it.
-RUN rm -f .git \
-    && git init -q \
-    && git config user.email docker@localhost \
-    && git config user.name docker \
-    && git commit -q --allow-empty -m docker-build
+RUN rm -f .git
+# Real commit hash for the "Web UI commit hash" shown in Settings — the
+# submodule's real .git metadata isn't in this build context, so it's passed
+# in via `--build-arg WEBUI_COMMIT_HASH=$(cd aw-server/aw-webui && git
+# rev-parse --short HEAD)` (see "Releasing a new version" in README).
+ARG WEBUI_COMMIT_HASH=dev
+ENV WEBUI_COMMIT_HASH=${WEBUI_COMMIT_HASH}
 # The favicon/PWA icons referenced by vue.config.js (iconPaths,
 # manifestOptions) come from branding/, a Chronly-own icon — not
 # ActivityWatch's own logo, which the fork license forbids reusing.

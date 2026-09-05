@@ -32,7 +32,7 @@ Chronly is a single Docker container (aw-server + the built web UI). Pull the pu
 image — no source access needed:
 
 ```bash
-docker run -d --name chronly -p 5600:5600 -v chronly-data:/data ghcr.io/ironcatan/chronly:latest
+docker run -d --name chronly --hostname chronly -p 5600:5600 -v chronly-data:/data ghcr.io/ironcatan/chronly:latest
 ```
 
 Then open `http://localhost:5600/`. Data persists in the `chronly-data` volume across restarts/upgrades.
@@ -114,12 +114,15 @@ production:
 1. Bump `VERSION` (semver) and commit it.
 2. Tag the commit: `git tag vX.Y.Z && git push myfork vX.Y.Z` (add `--tags` to
    push, once you're ready to push commits too).
-3. Build (passing `VERSION` in as a build arg, so it shows up under Settings)
-   and tag the image with both the version and `latest`:
+3. Build (passing `VERSION` and the webui submodule's real commit hash in as
+   build args, so both show up correctly under Settings) and tag the image
+   with both the version and `latest`:
    ```bash
-   docker compose build --build-arg CHRONLY_VERSION=$(cat VERSION)
-   docker tag activitywatch-activitywatch:latest ghcr.io/ironcatan/chronly:vX.Y.Z
-   docker tag activitywatch-activitywatch:latest ghcr.io/ironcatan/chronly:latest
+   docker compose build \
+     --build-arg CHRONLY_VERSION=$(cat VERSION) \
+     --build-arg WEBUI_COMMIT_HASH=$(cd aw-server/aw-webui && git rev-parse --short HEAD)
+   docker tag chronly-chronly:latest ghcr.io/ironcatan/chronly:vX.Y.Z
+   docker tag chronly-chronly:latest ghcr.io/ironcatan/chronly:latest
    docker push ghcr.io/ironcatan/chronly:vX.Y.Z
    docker push ghcr.io/ironcatan/chronly:latest
    ```

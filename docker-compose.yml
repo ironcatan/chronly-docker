@@ -6,6 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: chronly
+    hostname: chronly
     ports:
       - "5600:5600"
     volumes:
