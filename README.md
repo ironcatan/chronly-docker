@@ -1,4 +1,12 @@
-<img title="ActivityWatch" src="https://activitywatch.net/img/banner.png" align="center">
+# Chronly
+
+**This is Chronly, a private fork of [ActivityWatch](https://activitywatch.net/),
+maintained by Manuel Arroyo Algar. Not affiliated with or endorsed by the
+ActivityWatch project.** Licensed under MPLv2, same as upstream — see
+[docs.activitywatch.net/en/latest/forking.html](https://docs.activitywatch.net/en/latest/forking.html)
+for what that means. Submodules for aw-core, aw-server (and its aw-webui),
+and aw-notify are retargeted to this account's own forks; everything else
+still tracks the official ActivityWatch repos.
 
 <p align="center">
   <b>Records what you do</b> so that you can <i>know how you've spent your time</i>.
