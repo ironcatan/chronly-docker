@@ -103,3 +103,25 @@ All source repos (`aw-core`, `aw-client`, `aw-server`, `aw-webui`,
 `aw-watcher-afk`, `aw-watcher-window`, `aw-notify`) and this one are public —
 see the [Architecture](#architecture) links above, or browse this repo's
 submodules directly.
+
+## Releasing a new version
+
+`VERSION` (at repo root) tracks the Chronly release/image version — it's
+independent from `aw-server`'s own internal API version (the `v0.13.x` shown
+under Settings), which isn't bumped by this fork. Every time a change goes to
+production:
+
+1. Bump `VERSION` (semver) and commit it.
+2. Tag the commit: `git tag vX.Y.Z && git push myfork vX.Y.Z` (add `--tags` to
+   push, once you're ready to push commits too).
+3. Build and tag the image with both the version and `latest`:
+   ```bash
+   docker compose build
+   docker tag activitywatch-activitywatch:latest ghcr.io/ironcatan/chronly:vX.Y.Z
+   docker tag activitywatch-activitywatch:latest ghcr.io/ironcatan/chronly:latest
+   docker push ghcr.io/ironcatan/chronly:vX.Y.Z
+   docker push ghcr.io/ironcatan/chronly:latest
+   ```
+
+This keeps `latest` reproducible — anyone can pin to `vX.Y.Z` instead, and a
+past version can always be pulled back if a release has a problem.
