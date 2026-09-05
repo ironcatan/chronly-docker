@@ -1,8 +1,11 @@
+name: chronly
+
 services:
-  activitywatch:
+  chronly:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: chronly
     ports:
       - "5600:5600"
     volumes:
@@ -11,3 +14,5 @@ services:
 
 volumes:
   aw-data:
+    name: chronly_aw-data
+    external: true
