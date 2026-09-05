@@ -1,12 +1,12 @@
 [submodule "aw-core"]
 	path = aw-core
-	url = https://github.com/ActivityWatch/aw-core.git
+	url = https://github.com/ironcatan/aw-core-es.git
 [submodule "aw-client"]
 	path = aw-client
 	url = https://github.com/ActivityWatch/aw-client.git
 [submodule "aw-server"]
 	path = aw-server
-	url = https://github.com/ActivityWatch/aw-server.git
+	url = https://github.com/ironcatan/aw-server-es.git
 [submodule "aw-watcher-afk"]
 	path = aw-watcher-afk
 	url = https://github.com/ActivityWatch/aw-watcher-afk.git
@@ -30,4 +30,4 @@
 	url = https://github.com/2e3s/awatcher
 [submodule "aw-notify"]
 	path = aw-notify
-	url = https://github.com/ActivityWatch/aw-notify-rs.git
+	url = https://github.com/ironcatan/aw-notify-chronly.git
