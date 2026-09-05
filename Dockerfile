@@ -17,12 +17,12 @@ RUN rm -f .git \
     && git config user.email docker@localhost \
     && git config user.name docker \
     && git commit -q --allow-empty -m docker-build
-# Mirrors the Makefile's `prebuild` target: the favicon/PWA icons referenced
-# by vue.config.js (iconPaths, manifestOptions) come from the `media`
-# submodule, not from the webui source tree itself.
+# The favicon/PWA icons referenced by vue.config.js (iconPaths,
+# manifestOptions) come from branding/, a Chronly-own icon — not
+# ActivityWatch's own logo, which the fork license forbids reusing.
 RUN mkdir -p static \
-    && cp media/logo/logo.png static/logo.png \
-    && cp media/logo/logo.svg static/logo.svg \
+    && cp branding/logo.png static/logo.png \
+    && cp branding/logo.svg static/logo.svg \
     && npm run build
 
 # --- Stage 2: aw-server (Python) + built web UI ---
