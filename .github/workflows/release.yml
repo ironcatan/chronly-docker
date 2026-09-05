@@ -1112,7 +1112,7 @@ jobs:
           submodules: 'recursive'
           fetch-depth: 0
 
-      - uses: ActivityWatch/check-version-format-action@5b223bd718c4c00466359532cf944474f069625a # v2.0.1
+      - uses: ActivityWatch/check-version-format-action@49f19423fc1d13a153eef9312a3271c978536d7d # v3.2.7
         id: version
         with:
           prefix: 'v'
@@ -1220,7 +1220,7 @@ jobs:
         run: ls -R
         working-directory: dist
 
-      - uses: ActivityWatch/check-version-format-action@5b223bd718c4c00466359532cf944474f069625a # v2.0.1
+      - uses: ActivityWatch/check-version-format-action@49f19423fc1d13a153eef9312a3271c978536d7d # v3.2.7
         id: version
         with:
           prefix: 'v'
