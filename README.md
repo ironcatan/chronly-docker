@@ -114,9 +114,10 @@ production:
 1. Bump `VERSION` (semver) and commit it.
 2. Tag the commit: `git tag vX.Y.Z && git push myfork vX.Y.Z` (add `--tags` to
    push, once you're ready to push commits too).
-3. Build and tag the image with both the version and `latest`:
+3. Build (passing `VERSION` in as a build arg, so it shows up under Settings)
+   and tag the image with both the version and `latest`:
    ```bash
-   docker compose build
+   docker compose build --build-arg CHRONLY_VERSION=$(cat VERSION)
    docker tag activitywatch-activitywatch:latest ghcr.io/ironcatan/chronly:vX.Y.Z
    docker tag activitywatch-activitywatch:latest ghcr.io/ironcatan/chronly:latest
    docker push ghcr.io/ironcatan/chronly:vX.Y.Z

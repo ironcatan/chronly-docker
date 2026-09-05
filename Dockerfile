@@ -28,6 +28,11 @@ RUN mkdir -p static \
 # --- Stage 2: aw-server (Python) + built web UI ---
 FROM python:3.11-slim AS runtime
 
+# Set via `--build-arg CHRONLY_VERSION=$(cat VERSION)` at release time (see
+# "Releasing a new version" in README) so Settings shows Chronly's own
+# release version instead of aw-server's untouched internal API version.
+ARG CHRONLY_VERSION=dev
+
 RUN apt-get update \
     && apt-get install -y --no-install-recommends build-essential \
     && rm -rf /var/lib/apt/lists/*
@@ -37,6 +42,9 @@ WORKDIR /app
 COPY aw-core/ ./aw-core/
 COPY aw-client/ ./aw-client/
 COPY aw-server/ ./aw-server/
+
+RUN sed -i "s/^__version__ = .*/__version__ = \"${CHRONLY_VERSION}\"/" \
+    ./aw-server/aw_server/__about__.py
 
 # Built web UI goes into aw_server's static folder before the editable
 # install, so aw-server serves it directly (see aw_server/server.py).
