@@ -3,31 +3,16 @@
 	url = https://github.com/ironcatan/aw-core-es.git
 [submodule "aw-client"]
 	path = aw-client
-	url = https://github.com/ActivityWatch/aw-client.git
+	url = https://github.com/ironcatan/aw-client-chronly.git
 [submodule "aw-server"]
 	path = aw-server
 	url = https://github.com/ironcatan/aw-server-es.git
 [submodule "aw-watcher-afk"]
 	path = aw-watcher-afk
-	url = https://github.com/ActivityWatch/aw-watcher-afk.git
-[submodule "aw-qt"]
-	path = aw-qt
-	url = https://github.com/ActivityWatch/aw-qt.git
+	url = https://github.com/ironcatan/aw-watcher-afk-chronly.git
 [submodule "aw-watcher-window"]
 	path = aw-watcher-window
-	url = https://github.com/ActivityWatch/aw-watcher-window.git
-[submodule "aw-server-rust"]
-	path = aw-server-rust
-	url = https://github.com/ActivityWatch/aw-server-rust.git
-[submodule "aw-watcher-input"]
-	path = aw-watcher-input
-	url = https://github.com/ActivityWatch/aw-watcher-input.git
-[submodule "aw-tauri"]
-	path = aw-tauri
-	url = https://github.com/activitywatch/aw-tauri
-[submodule "awatcher"]
-	path = awatcher
-	url = https://github.com/2e3s/awatcher
+	url = https://github.com/ironcatan/aw-watcher-window-chronly.git
 [submodule "aw-notify"]
 	path = aw-notify
 	url = https://github.com/ironcatan/aw-notify-chronly.git
