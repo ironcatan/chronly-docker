@@ -99,7 +99,7 @@ is in [ActivityWatch's documentation](https://docs.activitywatch.net/en/latest/w
 
 ### Source access
 
-The published Docker image is the only thing that's public. The source repos
-(`aw-core`, `aw-client`, `aw-server`, `aw-webui`, `aw-watcher-afk`,
-`aw-watcher-window`, `aw-notify`) are private — reach out if you'd like access
-to build from source or contribute.
+All source repos (`aw-core`, `aw-client`, `aw-server`, `aw-webui`,
+`aw-watcher-afk`, `aw-watcher-window`, `aw-notify`) and this one are public —
+see the [Architecture](#architecture) links above, or browse this repo's
+submodules directly.
