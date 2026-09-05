@@ -4,9 +4,11 @@
 maintained by Manuel Arroyo Algar. Not affiliated with or endorsed by the
 ActivityWatch project.** Licensed under MPLv2, same as upstream — see
 [docs.activitywatch.net/en/latest/forking.html](https://docs.activitywatch.net/en/latest/forking.html)
-for what that means. Submodules for aw-core, aw-server (and its aw-webui),
-and aw-notify are retargeted to this account's own forks; everything else
-still tracks the official ActivityWatch repos.
+for what that means. Every submodule this fork actually uses (aw-core,
+aw-client, aw-server and its aw-webui, aw-watcher-afk, aw-watcher-window,
+aw-notify) is retargeted to this account's own forks. Unused upstream
+components (the aw-qt tray app, aw-server-rust, aw-watcher-input, aw-tauri,
+awatcher) were removed rather than carried along.
 
 <p align="center">
   <b>Records what you do</b> so that you can <i>know how you've spent your time</i>.
@@ -26,20 +28,22 @@ This works by storing all data locally on your own machine, with a set of watche
 
 ## Installation & Usage
 
-This fork is deployed as a single Docker container (aw-server + the built web UI):
+Chronly is a single Docker container (aw-server + the built web UI). Pull the published
+image — no source access needed:
 
 ```bash
-git clone --recurse-submodules https://github.com/ironcatan/chronly-docker.git chronly
-cd chronly
-docker compose up -d --build
+docker run -d --name chronly -p 5600:5600 -v chronly-data:/data ghcr.io/ironcatan/chronly:latest
 ```
 
-Then open `http://localhost:5600/`.
+Then open `http://localhost:5600/`. Data persists in the `chronly-data` volume across restarts/upgrades.
+
+To upgrade later: `docker pull ghcr.io/ironcatan/chronly:latest`, then recreate the container.
 
 Optional native pieces (not required to use the web UI): `aw-watcher-afk` and
 `aw-watcher-window` for automatic activity tracking, and `aw-notify` for desktop
-notifications/alerts. These run as regular background processes on your machine
-(see each submodule's own README) — there's no installer/release build for them.
+notifications/alerts. These run as regular background processes on your machine and
+require building from source (their code isn't publicly published) — see
+[About this repository](#about-this-repository) below.
 
 ## Architecture
 
@@ -48,8 +52,8 @@ graph TD;
   aw-notify[<a href='https://github.com/ironcatan/aw-notify-chronly'>aw-notify</a>];
   aw-server[<a href='https://github.com/ironcatan/aw-server-es'>aw-server</a>];
   aw-webui[<a href='https://github.com/ironcatan/aw-webui-es'>aw-webui</a>];
-  aw-watcher-window[<a href='https://github.com/ActivityWatch/aw-watcher-window'>aw-watcher-window</a>];
-  aw-watcher-afk[<a href='https://github.com/ActivityWatch/aw-watcher-afk'>aw-watcher-afk</a>];
+  aw-watcher-window[<a href='https://github.com/ironcatan/aw-watcher-window-chronly'>aw-watcher-window</a>];
+  aw-watcher-afk[<a href='https://github.com/ironcatan/aw-watcher-afk-chronly'>aw-watcher-afk</a>];
 
   aw-notify -- Queries --> aw-server;
   aw-watcher-window -- Watches --> S1[Active window] -- Heartbeats --> aw-server;
@@ -84,10 +88,18 @@ Ajustes → Gestión de datos.
  - `aw-watcher-afk` tracks the user active/inactive state from keyboard and mouse input
  - `aw-watcher-window` tracks the currently active application and its window title
 
-Both still track upstream ActivityWatch (unmodified in this fork). A full list of the wider
-watcher ecosystem is in [ActivityWatch's documentation](https://docs.activitywatch.net/en/latest/watchers.html).
+Both are forked for independence but unmodified (aw-watcher-window has one small
+fix for a macOS sandboxing edge case). A full list of the wider watcher ecosystem
+is in [ActivityWatch's documentation](https://docs.activitywatch.net/en/latest/watchers.html).
 
 ### Libraries
 
  - `aw-core` - core library, provides no runnable modules
  - `aw-client` - client library, useful when writing watchers
+
+### Source access
+
+The published Docker image is the only thing that's public. The source repos
+(`aw-core`, `aw-client`, `aw-server`, `aw-webui`, `aw-watcher-afk`,
+`aw-watcher-window`, `aw-notify`) are private — reach out if you'd like access
+to build from source or contribute.
