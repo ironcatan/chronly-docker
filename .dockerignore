@@ -1,0 +1,23 @@
+# Node
+**/node_modules
+aw-server/aw-webui/dist
+
+# Python
+**/__pycache__
+**/*.pyc
+.venv-awserver
+**/*.egg-info
+
+# Git
+.git
+
+# Other submodules not needed for the web bundle
+aw-qt
+aw-qt/media
+aw-watcher-afk
+aw-watcher-window
+aw-watcher-input
+aw-server-rust
+aw-tauri
+aw-notify
+awatcher
